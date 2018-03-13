@@ -3,7 +3,7 @@
 def Cpt_amenities(con_amenities):
     p_amenities = {}
     p_amenities = {'lots':0.3, 'little':0.7}
-    return  prob_amenities[con_amenities]
+    return  p_amenities[con_amenities]
 
 def Cpt_neighborhood(con_neighborhood):
     p_neighborhood = {}
