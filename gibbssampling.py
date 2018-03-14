@@ -18,6 +18,25 @@ class gibbsSampling(Network):
 		self.evidenceState 	= state
 		self.interestNode 	= interest
 		self.temp_interest = None
+		self.Query = 'None'
+		self.evidenceNodes = []
+		self.evidenceValues = []
+		self.iterations = 1
+		self.discard_value = 0
+
+    def read_arguments(self):
+		parser = argparse.ArgumentParser(prog = 'gibbs', description = "Pass in all the arguments")
+		parser.add_argument('QueryNode', type = str, help = "Enter the node to be queried")
+		parser.add_argument('Evidence', nargs = '+', help = 'Enter the evidence nodes with its value')
+		parser.add_argument('-u', type = int, help = "Number of Iterations")
+		parser.add_argument('-d', type = int, default = 0, help = "Number of initial samples to drop")
+		args = parser.parse_args()
+		self.Query = args.QueryNode
+		temp = args.Evidence
+		self.evidenceNodes = [i.split('=', -1)[0] for i in temp]
+		self.evidenceValues = [i.split('=', -1)[1] for i in temp]
+		self.iterations = args.u
+		self.discard_values = args.d
 	
 	def getParents(self,node):
 		for parents,child in self.graph.iteritems():
